@@ -1,23 +1,12 @@
 #ifndef SORT_H
 #define SORT_H
 
+#define UP_Sort 0
+#define DOWN_Sort 1
+
 #include <stdio.h>
 #include <stdlib.h>
-
-/* Comparison direction macros for bitonic sort */
-#define UP 0
-#define DOWN 1
-
-/**
- * enum bool - Enumeration of Boolean values.
- * @false: Equals 0.
- * @true: Equals 1.
- */
-typedef enum bool
-{
-	false = 0,
-	true
-} bool;
+#include <stdbool.h>
 
 /**
  * struct listint_s - Doubly linked list node
@@ -28,27 +17,67 @@ typedef enum bool
  */
 typedef struct listint_s
 {
-	const int n;
-	struct listint_s *prev;
-	struct listint_s *next;
+const int n;
+struct listint_s *prev;
+struct listint_s *next;
 } listint_t;
 
-/* Printing helper functions */
+/*print*/
 void print_array(const int *array, size_t size);
 void print_list(const listint_t *list);
 
-/* Sorting algoritms */
-void bubble_sort(int *array, size_t size);
-void insertion_sort_list(listint_t **list);
-void selection_sort(int *array, size_t size);
-void quick_sort(int *array, size_t size);
-void shell_sort(int *array, size_t size);
-void cocktail_sort_list(listint_t **list);
-void counting_sort(int *array, size_t size);
-void merge_sort(int *array, size_t size);
-void heap_sort(int *array, size_t size);
-void radix_sort(int *array, size_t size);
-void bitonic_sort(int *array, size_t size);
+/*hoare sort*/
 void quick_sort_hoare(int *array, size_t size);
+int quick_sort_hoare_partition(int *arr, size_t s, int start, int end);
+void quick_sort_hoare_recursive(int *ar, size_t s, int start, int end);
 
-#endif /* SORT_H */
+/*bitonic*/
+void bitonic_compare(int *array, size_t i, size_t j, char choose);
+void bitonic_merge(int *array, size_t size, size_t low,
+size_t count, char choose);
+void bitonic_sort_recursive(int *array, size_t size,
+size_t low, size_t count, char choose);
+void bitonic_sort(int *array, size_t size);
+
+/*radix*/
+int max_value(int *array, size_t size);
+void counting_sort_radix(int *array, size_t size, int exp);
+void radix_sort(int *array, size_t size);
+
+/*heap*/
+void heap_sort(int *array, size_t size);
+void heapify(int *arr, size_t size, size_t idx, size_t s);
+
+/*merge*/
+void merge_sort(int *array, size_t size);
+void merging(int *array, size_t size, int *left, int *right);
+
+/*counting*/
+void counting_sort(int *array, size_t size);
+
+/*coktail*/
+void cocktail_sort_list(listint_t **list);
+void swap_head(listint_t **list, listint_t **tail, listint_t **check);
+void swap_behind(listint_t **list, listint_t **tail, listint_t **check);
+
+/*shell*/
+void shell_sort(int *array, size_t size);
+
+/*quic*/
+void swap(int *x, int *z);
+int partition(int *arr, int start, int end, size_t size);
+void quick_sort_recursive(int *arr, int start, int end, size_t size);
+void quick_sort(int *array, size_t size);
+
+/*selection*/
+void selection_sort(int *array, size_t size);
+
+
+/*insertion*/
+void insertion_sort_list(listint_t **list);
+void swap_nodes(listint_t **list, listint_t *node1, listint_t *node2);
+
+/*bubble*/
+void bubble_sort(int *array, size_t size);
+
+#endif
